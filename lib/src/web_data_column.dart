@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 ///
-/// WebColumnConfig
+/// WebDataColumn
 ///
-class WebColumnConfig {
-  const WebColumnConfig({
+class WebDataColumn {
+  const WebDataColumn({
     @required this.name,
     @required this.label,
     @required this.dataCell,

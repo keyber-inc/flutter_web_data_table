@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +12,6 @@ class WebDataTable extends StatefulWidget {
   const WebDataTable({
     Key key,
     @required this.header,
-    this.actions,
-    this.sortColumnName,
-    this.sortAscending = true,
     this.onSelectAll,
     this.dataRowHeight = kMinInteractiveDimension,
     this.headingRowHeight = 56.0,
@@ -22,21 +21,20 @@ class WebDataTable extends StatefulWidget {
     this.initialFirstRowIndex = 0,
     this.onPageChanged,
     this.enableRowsPerPage = true,
-    this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage,
+    this.rowsPerPage = defaultRowsPerPage,
     this.availableRowsPerPage = const [
-      PaginatedDataTable.defaultRowsPerPage,
-      PaginatedDataTable.defaultRowsPerPage * 2,
-      PaginatedDataTable.defaultRowsPerPage * 5,
-      PaginatedDataTable.defaultRowsPerPage * 10,
+      defaultRowsPerPage,
+      defaultRowsPerPage * 2,
+      defaultRowsPerPage * 5,
+      defaultRowsPerPage * 10,
     ],
     @required this.source,
     this.dragStartBehavior = DragStartBehavior.start,
+    this.enableSearch = false,
   }) : super(key: key);
 
+  static const int defaultRowsPerPage = 10;
   final Widget header;
-  final List<Widget> actions;
-  final String sortColumnName;
-  final bool sortAscending;
   final ValueSetter<bool> onSelectAll;
   final double dataRowHeight;
   final double headingRowHeight;
@@ -50,6 +48,7 @@ class WebDataTable extends StatefulWidget {
   final List<int> availableRowsPerPage;
   final WebDataTableSource source;
   final DragStartBehavior dragStartBehavior;
+  final bool enableSearch;
 
   @override
   _WebDataTableState createState() => _WebDataTableState();
@@ -59,38 +58,67 @@ class _WebDataTableState extends State<WebDataTable> {
   int _sortColumnIndex;
   bool _sortAscending;
   int _rowsPerPage;
+  String _searchText;
+  bool _willSearch = true;
+  Timer _timer;
+  int _latestTick;
 
   @override
   void initState() {
     super.initState();
-    _sortColumnIndex = _toSortColumnIndex(widget.source, widget.sortColumnName);
-    _sortAscending = widget.sortAscending;
+    _sortColumnIndex = widget.source.sortColumnIndex;
+    _sortAscending = widget.source.sortAscending;
     _rowsPerPage = widget.rowsPerPage;
-  }
-
-  /// sortColumnName => sortColumnIndex
-  int _toSortColumnIndex(
-    WebDataTableSource source,
-    String sortColumnName,
-  ) {
-    int index;
-    if (sortColumnName != null) {
-      source.columnConfigs.asMap().forEach((i, columnConfig) {
-        if (columnConfig.name == sortColumnName) {
-          index = i;
-          return;
+    if (widget.enableSearch) {
+      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+        if (!_willSearch) {
+          if (_latestTick != null && timer.tick > _latestTick) {
+            _willSearch = true;
+          }
+        }
+        if (_willSearch) {
+          _willSearch = false;
+          _latestTick = null;
+          setState(() {
+            if (_searchText != null) {
+              widget.source.search(_searchText);
+            }
+          });
         }
       });
     }
-    return index;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return PaginatedDataTable(
       header: widget.header,
-      actions: widget.actions,
-      columns: widget.source.columnConfigs.map((config) {
+      actions: [
+        if (widget.enableSearch)
+          Container(
+            width: 200,
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+              ),
+              onChanged: (text) {
+                _searchText = text.trim();
+                _willSearch = false;
+                _latestTick = _timer.tick;
+              },
+            ),
+          ),
+      ],
+      columns: widget.source.columns.map((config) {
         return DataColumn(
           label: config.label,
           tooltip: config.tooltip,

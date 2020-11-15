@@ -2,26 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17b1f201-2f53-456a-beb7-958fb12441ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/lib/sample_data.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/flutter_web_data_table.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/web_column_config.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/web_data_table.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/web_data_table_source.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/flutter_web_data_table_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/example/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/test/widget_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_web_datatable.iml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_web_datatable.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/flutter_web_datatable.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/flutter_web_datatable_test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/flutter_web_data_table.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_web_data_table.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/web_column_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/web_data_column.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/web_data_table.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/web_data_table.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/web_data_table_source.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/web_data_table_source.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,22 +62,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="2006" height="348" key="GridCell.Tab.0.bottom" timestamp="1605451473526">
+    <state width="1217" height="348" key="GridCell.Tab.0.bottom" timestamp="1605456349437">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.bottom/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
-    <state width="2006" height="348" key="GridCell.Tab.0.center" timestamp="1605451473526">
+    <state width="1217" height="348" key="GridCell.Tab.0.bottom/0.23.2048.1257@0.23.2048.1257" timestamp="1605456349437" />
+    <state width="1217" height="348" key="GridCell.Tab.0.center" timestamp="1605456349436">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.center/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
-    <state width="2006" height="348" key="GridCell.Tab.0.left" timestamp="1605451473526">
+    <state width="1217" height="348" key="GridCell.Tab.0.center/0.23.2048.1257@0.23.2048.1257" timestamp="1605456349436" />
+    <state width="1217" height="348" key="GridCell.Tab.0.left" timestamp="1605456349436">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.left/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
-    <state width="2006" height="348" key="GridCell.Tab.0.right" timestamp="1605451473526">
+    <state width="1217" height="348" key="GridCell.Tab.0.left/0.23.2048.1257@0.23.2048.1257" timestamp="1605456349436" />
+    <state width="1217" height="348" key="GridCell.Tab.0.right" timestamp="1605456349436">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.right/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
+    <state width="1217" height="348" key="GridCell.Tab.0.right/0.23.2048.1257@0.23.2048.1257" timestamp="1605456349436" />
     <state x="676" y="408" width="695" height="486" key="find.popup" timestamp="1605451325662">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
