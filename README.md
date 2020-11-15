@@ -1,6 +1,6 @@
-# flutter_web_datatable
+# flutter_web_data_table
 
-A new flutter plugin project.
+A DataTable for Flutter Web that is implemented a sort and search.
 
 ## Getting Started
 

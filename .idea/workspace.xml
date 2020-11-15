@@ -1,45 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="flutter_web_datatable.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/flutter_web_datatable.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+  <component name="ChangeListManager">
+    <list default="true" id="17b1f201-2f53-456a-beb7-958fb12441ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/example/lib/sample_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/flutter_web_data_table.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/web_column_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/web_data_table.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/web_data_table_source.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/flutter_web_data_table_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/example/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/test/widget_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_web_datatable.iml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_web_datatable.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/flutter_web_datatable.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/flutter_web_datatable_test.dart" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ToolWindowManager">
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-    </layout>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <option name="show-excluded-files" value="false" />
-      </pane>
-    </panes>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kKWIarPloxrEe4IhIH5xYbSuTT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="dart.analysis.tool.window.force.activate" value="true" />
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/src" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17b1f201-2f53-456a-beb7-958fb12441ad" name="Default Changelist" comment="" />
+      <created>1605449684164</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605449684164</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="2006" height="348" key="GridCell.Tab.0.bottom" timestamp="1605451473526">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="348" key="GridCell.Tab.0.bottom/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
+    <state width="2006" height="348" key="GridCell.Tab.0.center" timestamp="1605451473526">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="348" key="GridCell.Tab.0.center/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
+    <state width="2006" height="348" key="GridCell.Tab.0.left" timestamp="1605451473526">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="348" key="GridCell.Tab.0.left/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
+    <state width="2006" height="348" key="GridCell.Tab.0.right" timestamp="1605451473526">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="348" key="GridCell.Tab.0.right/0.23.2048.1257@0.23.2048.1257" timestamp="1605451473526" />
+    <state x="676" y="408" width="695" height="486" key="find.popup" timestamp="1605451325662">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state x="676" y="408" width="695" height="486" key="find.popup/0.23.2048.1257@0.23.2048.1257" timestamp="1605451325662" />
   </component>
 </project>

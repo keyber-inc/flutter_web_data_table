@@ -67,7 +67,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_datatable:
+  flutter_web_data_table:
     dependency: "direct main"
     description:
       path: ".."

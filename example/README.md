@@ -1,6 +1,6 @@
-# flutter_web_datatable_example
+# flutter_web_data_table_example
 
-Demonstrates how to use the flutter_web_datatable plugin.
+Demonstrates how to use the flutter_web_data_table plugin.
 
 ## Getting Started
 
