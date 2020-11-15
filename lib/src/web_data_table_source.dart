@@ -13,7 +13,7 @@ class WebDataTableSource extends DataTableSource {
     this.sortColumnName,
     this.sortAscending = true,
   }) {
-    _rows = copyRows();
+    _rows = [...rows];
   }
 
   final List<WebDataColumn> columns;
@@ -66,7 +66,7 @@ class WebDataTableSource extends DataTableSource {
 
   void search(String text) {
     if (text == null || text.length < 2) {
-      _rows = copyRows();
+      _rows = [...rows];
       sort(sortColumnIndex, sortAscending);
       return;
     }
@@ -95,17 +95,5 @@ class WebDataTableSource extends DataTableSource {
       });
     }
     return index;
-  }
-
-  List<Map<String, dynamic>> copyRows() {
-    List<Map<String, dynamic>> copyRows = [];
-    rows.forEach((row) {
-      Map<String, dynamic> copyRow = {};
-      row.forEach((key, value) {
-        copyRow[key] = value;
-      });
-      copyRows.add(copyRow);
-    });
-    return copyRows;
   }
 }
