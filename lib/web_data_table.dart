@@ -15,6 +15,7 @@ class WebDataTable extends StatefulWidget {
   const WebDataTable({
     Key key,
     @required this.header,
+    this.actions,
     this.onSelectAll,
     this.dataRowHeight = kMinInteractiveDimension,
     this.headingRowHeight = 56.0,
@@ -34,10 +35,13 @@ class WebDataTable extends StatefulWidget {
     @required this.source,
     this.dragStartBehavior = DragStartBehavior.start,
     this.enableSearch = false,
+    this.searchDecoration,
+    this.searchWidth = 200,
   }) : super(key: key);
 
   static const int defaultRowsPerPage = 10;
   final Widget header;
+  final List<Widget> actions;
   final ValueSetter<bool> onSelectAll;
   final double dataRowHeight;
   final double headingRowHeight;
@@ -52,6 +56,8 @@ class WebDataTable extends StatefulWidget {
   final WebDataTableSource source;
   final DragStartBehavior dragStartBehavior;
   final bool enableSearch;
+  final InputDecoration searchDecoration;
+  final double searchWidth;
 
   @override
   _WebDataTableState createState() => _WebDataTableState();
@@ -103,24 +109,31 @@ class _WebDataTableState extends State<WebDataTable> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> actions = [];
+    if (widget.enableSearch) {
+      actions.add(Container(
+        width: widget.searchWidth,
+        child: TextField(
+          decoration: widget.searchDecoration != null
+              ? widget.searchDecoration
+              : InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                ),
+          onChanged: (text) {
+            _searchText = text.trim();
+            _willSearch = false;
+            _latestTick = _timer.tick;
+          },
+        ),
+      ));
+    }
+    if (widget.actions != null) {
+      actions.addAll(widget.actions);
+    }
+
     return PaginatedDataTable(
       header: widget.header,
-      actions: [
-        if (widget.enableSearch)
-          Container(
-            width: 200,
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-              ),
-              onChanged: (text) {
-                _searchText = text.trim();
-                _willSearch = false;
-                _latestTick = _timer.tick;
-              },
-            ),
-          ),
-      ],
+      actions: actions,
       columns: widget.source.columns.map((config) {
         return DataColumn(
           label: config.label,

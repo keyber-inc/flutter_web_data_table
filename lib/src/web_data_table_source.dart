@@ -66,22 +66,37 @@ class WebDataTableSource extends DataTableSource {
 
   void search(String text) {
     if (text == null || text.length < 2) {
-      _rows = [...rows];
-      sort(sortColumnIndex, sortAscending);
+      if (_rows.length != rows.length) {
+        _rows = [...rows];
+        sort(sortColumnIndex, sortAscending);
+      }
       return;
     }
 
     _rows.clear();
     for (Map<String, dynamic> row in rows) {
       for (String name in row.keys.toList()) {
-        final value = row[name].toString();
-        if (value.contains(text)) {
+        final column = _findDataColumn(name);
+        String searchText = row[name].toString();
+        if (column.searchText != null) {
+          searchText = column.searchText(row[name]);
+        }
+        if (searchText.contains(text)) {
           _rows.add(row);
           break;
         }
       }
     }
     sort(sortColumnIndex, sortAscending);
+  }
+
+  WebDataColumn _findDataColumn(String name) {
+    for (WebDataColumn column in columns) {
+      if (column.name == name) {
+        return column;
+      }
+    }
+    return null;
   }
 
   int get sortColumnIndex {

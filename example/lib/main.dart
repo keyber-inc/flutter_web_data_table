@@ -25,6 +25,12 @@ class _MyAppState extends State<MyApp> {
             padding: const EdgeInsets.all(8.0),
             child: WebDataTable(
               header: Text('DataTables Advanced Tables'),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {},
+                ),
+              ],
               source: WebDataTableSource(
                 sortAscending: false,
                 sortColumnName: 'browser',
@@ -55,6 +61,23 @@ class _MyAppState extends State<MyApp> {
                     dataCell: (value) => DataCell(Text('$value')),
                     sortable: false,
                   ),
+                  WebDataColumn(
+                      name: 'dateTime',
+                      label: const Text('DateTime'),
+                      dataCell: (value) {
+                        if (value is DateTime) {
+                          final text =
+                              '${value.year}/${value.month}/${value.day} ${value.hour}:${value.minute}:${value.second}';
+                          return DataCell(Text(text));
+                        }
+                        return DataCell(Text(value.toString()));
+                      },
+                      searchText: (value) {
+                        if (value is DateTime) {
+                          return '${value.year}/${value.month}/${value.day} ${value.hour}:${value.minute}:${value.second}';
+                        }
+                        return value.toString();
+                      }),
                 ],
                 rows: SampleData().data,
                 onTapRow: (row, index) {
@@ -63,6 +86,21 @@ class _MyAppState extends State<MyApp> {
               ),
               horizontalMargin: 100,
               enableSearch: true,
+              searchDecoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                hintText: 'increment search...',
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC),
+                  ),
+                ),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC),
+                  ),
+                ),
+              ),
+              searchWidth: 300,
             ),
           ),
         ),
