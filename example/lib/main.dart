@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
           child: Container(
             padding: const EdgeInsets.all(8.0),
             child: WebDataTable(
-              header: Text('DataTables Advanced Tables'),
+              header: Text('Sample Data'),
               actions: [
                 IconButton(
                   icon: Icon(Icons.add),
@@ -84,8 +84,10 @@ class _MyAppState extends State<MyApp> {
                   print('onTapRow(): index = $index, row = $row');
                 },
                 onSelectedRows: (rows) {
-                  print('onSelectedRows(): rows = $rows');
+                  print(
+                      'onSelectedRows(): count = ${rows.length} rows = ${rows.map((row) => row['id']).toList()}');
                 },
+                primaryKeyName: 'id',
               ),
               horizontalMargin: 100,
               enableSearch: true,

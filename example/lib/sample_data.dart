@@ -384,6 +384,7 @@ class SampleData {
 
 class SampleDataRow {
   SampleDataRow._({
+    this.id,
     this.renderingEngine,
     this.browser,
     this.platform,
@@ -394,6 +395,7 @@ class SampleDataRow {
 
   factory SampleDataRow.fromList(List<String> values) {
     return SampleDataRow._(
+      id: values.hashCode.toString(),
       renderingEngine: values[0],
       browser: values[1],
       platform: values[2],
@@ -403,6 +405,7 @@ class SampleDataRow {
     );
   }
 
+  final String id;
   final String renderingEngine;
   final String browser;
   final String platform;
@@ -412,6 +415,7 @@ class SampleDataRow {
 
   Map<String, dynamic> get values {
     return {
+      'id': id,
       'renderingEngine': renderingEngine,
       'browser': browser,
       'platform': platform,
