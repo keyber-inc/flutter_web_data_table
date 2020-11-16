@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'web_data_table_source.dart';
+import 'src/web_data_table_source.dart';
+
+export 'src/web_data_column.dart';
+export 'src/web_data_table_source.dart';
 
 ///
 /// WebDataTable

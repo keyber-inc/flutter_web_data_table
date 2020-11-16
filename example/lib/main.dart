@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_data_table/flutter_web_data_table.dart';
+import 'package:flutter_web_data_table/web_data_table.dart';
 
 import 'sample_data.dart';
 
