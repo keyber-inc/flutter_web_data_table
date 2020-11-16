@@ -18,3 +18,6 @@ By default searching is disabled.
 
 If you want to enable searching, set `enableSearch` of `WebDataTable` to true.
 
+### Selecting
+
+If you want to selecting, implements `onSelectedRows` of `WebDataTableSource` and set `primaryKeyName` to primary key.
