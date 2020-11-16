@@ -16,12 +16,10 @@ class WebDataTable extends StatefulWidget {
     Key key,
     @required this.header,
     this.actions,
-    this.onSelectAll,
     this.dataRowHeight = kMinInteractiveDimension,
     this.headingRowHeight = 56.0,
     this.horizontalMargin = 24.0,
     this.columnSpacing = 56.0,
-    this.showCheckboxColumn = false,
     this.initialFirstRowIndex = 0,
     this.onPageChanged,
     this.enableRowsPerPage = true,
@@ -42,12 +40,10 @@ class WebDataTable extends StatefulWidget {
   static const int defaultRowsPerPage = 10;
   final Widget header;
   final List<Widget> actions;
-  final ValueSetter<bool> onSelectAll;
   final double dataRowHeight;
   final double headingRowHeight;
   final double horizontalMargin;
   final double columnSpacing;
-  final bool showCheckboxColumn;
   final int initialFirstRowIndex;
   final ValueChanged<int> onPageChanged;
   final bool enableRowsPerPage;
@@ -152,12 +148,12 @@ class _WebDataTableState extends State<WebDataTable> {
       }).toList(),
       sortColumnIndex: _sortColumnIndex,
       sortAscending: _sortAscending,
-      onSelectAll: widget.onSelectAll,
+      onSelectAll: (selected) => widget.source.selectAll(selected),
       dataRowHeight: widget.dataRowHeight,
       headingRowHeight: widget.headingRowHeight,
       horizontalMargin: widget.horizontalMargin,
       columnSpacing: widget.columnSpacing,
-      showCheckboxColumn: widget.showCheckboxColumn,
+      showCheckboxColumn: widget.source.onSelectedRows != null,
       initialFirstRowIndex: widget.initialFirstRowIndex,
       onPageChanged: widget.onPageChanged,
       rowsPerPage: _rowsPerPage,

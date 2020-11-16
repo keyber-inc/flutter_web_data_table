@@ -10,6 +10,7 @@ class WebDataTableSource extends DataTableSource {
     @required this.columns,
     @required this.rows,
     this.onTapRow,
+    this.onSelectedRows,
     this.sortColumnName,
     this.sortAscending = true,
   }) {
@@ -19,7 +20,9 @@ class WebDataTableSource extends DataTableSource {
   final List<WebDataColumn> columns;
   final List<Map<String, dynamic>> rows;
   List<Map<String, dynamic>> _rows;
+  final List<int> _selectedRows = [];
   final Function(Map<String, dynamic> row, int index) onTapRow;
+  final Function(List<Map<String, dynamic>> selectedRows) onSelectedRows;
   String sortColumnName;
   bool sortAscending;
 
@@ -32,10 +35,20 @@ class WebDataTableSource extends DataTableSource {
     return DataRow.byIndex(
         index: index,
         cells: cells,
+        selected: _selectedRows.contains(index),
         onSelectChanged: (selected) {
+          if (selected) {
+            _selectedRows.add(index);
+          } else {
+            _selectedRows.remove(index);
+          }
           if (onTapRow != null) {
             onTapRow(_rows[index], index);
           }
+          if (onSelectedRows != null) {
+            onSelectedRows(_selectedRows.map((index) => _rows[index]).toList());
+          }
+          notifyListeners();
         });
   }
 
@@ -110,5 +123,17 @@ class WebDataTableSource extends DataTableSource {
       });
     }
     return index;
+  }
+
+  void selectAll(bool selected) {
+    _selectedRows.clear();
+    if (selected) {
+      _selectedRows.addAll(_rows.asMap().keys.toList());
+    }
+
+    if (onSelectedRows != null) {
+      onSelectedRows(_selectedRows.map((index) => _rows[index]).toList());
+    }
+    notifyListeners();
   }
 }

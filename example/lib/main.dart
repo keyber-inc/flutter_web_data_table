@@ -81,7 +81,10 @@ class _MyAppState extends State<MyApp> {
                 ],
                 rows: SampleData().data,
                 onTapRow: (row, index) {
-                  print('$index: $row');
+                  print('onTapRow(): index = $index, row = $row');
+                },
+                onSelectedRows: (rows) {
+                  print('onSelectedRows(): rows = $rows');
                 },
               ),
               horizontalMargin: 100,
@@ -101,6 +104,9 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               searchWidth: 300,
+              onPageChanged: (offset) {
+                print('onPageChanged(): offset = $offset');
+              },
             ),
           ),
         ),
