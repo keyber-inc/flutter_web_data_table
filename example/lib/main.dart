@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_data_table/web_data_table.dart';
 
@@ -13,6 +15,48 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String _sortColumnName;
+  bool _sortAscending;
+  List<String> _filterTexts;
+  bool _willSearch = true;
+  Timer _timer;
+  int _latestTick;
+  List<String> _selectedRowKeys = [];
+  int _rowsPerPage = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    _sortColumnName = 'browser';
+    _sortAscending = false;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (!_willSearch) {
+        if (_latestTick != null && timer.tick > _latestTick) {
+          _willSearch = true;
+        }
+      }
+      if (_willSearch) {
+        _willSearch = false;
+        _latestTick = null;
+        setState(() {
+          if (_filterTexts != null && _filterTexts.isNotEmpty) {
+            _filterTexts = _filterTexts;
+            print('filterTexts = $_filterTexts');
+          }
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,15 +70,61 @@ class _MyAppState extends State<MyApp> {
             child: WebDataTable(
               header: Text('Sample Data'),
               actions: [
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {},
+                if (_selectedRowKeys.isNotEmpty)
+                  SizedBox(
+                    height: 50,
+                    width: 100,
+                    child: RaisedButton(
+                      color: Colors.red,
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () {
+                        print('Delete!');
+                        setState(() {
+                          _selectedRowKeys.clear();
+                        });
+                      },
+                    ),
+                  ),
+                Container(
+                  width: 300,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'increment search...',
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC),
+                        ),
+                      ),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC),
+                        ),
+                      ),
+                    ),
+                    onChanged: (text) {
+                      _filterTexts = text.trim().split(' ');
+                      _willSearch = false;
+                      _latestTick = _timer.tick;
+                    },
+                  ),
                 ),
               ],
               source: WebDataTableSource(
-                sortAscending: false,
-                sortColumnName: 'browser',
+                sortColumnName: _sortColumnName,
+                sortAscending: _sortAscending,
+                filterTexts: _filterTexts,
                 columns: [
+                  WebDataColumn(
+                    name: 'id',
+                    label: const Text('ID'),
+                    dataCell: (value) => DataCell(Text('$value')),
+                  ),
                   WebDataColumn(
                     name: 'renderingEngine',
                     label: const Text('Rendering engine'),
@@ -72,7 +162,7 @@ class _MyAppState extends State<MyApp> {
                         }
                         return DataCell(Text(value.toString()));
                       },
-                      searchText: (value) {
+                      filterText: (value) {
                         if (value is DateTime) {
                           return '${value.year}/${value.month}/${value.day} ${value.hour}:${value.minute}:${value.second}';
                         }
@@ -80,35 +170,37 @@ class _MyAppState extends State<MyApp> {
                       }),
                 ],
                 rows: SampleData().data,
+                selectedRowKeys: _selectedRowKeys,
                 onTapRow: (row, index) {
                   print('onTapRow(): index = $index, row = $row');
                 },
-                onSelectedRows: (rows) {
-                  print(
-                      'onSelectedRows(): count = ${rows.length} rows = ${rows.map((row) => row['id']).toList()}');
+                onSelectRows: (keys) {
+                  print('onSelectRows(): count = ${keys.length} keys = $keys');
+                  setState(() {
+                    _selectedRowKeys = keys;
+                  });
                 },
                 primaryKeyName: 'id',
               ),
               horizontalMargin: 100,
-              enableSearch: true,
-              searchDecoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'increment search...',
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xFFCCCCCC),
-                  ),
-                ),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xFFCCCCCC),
-                  ),
-                ),
-              ),
-              searchWidth: 300,
               onPageChanged: (offset) {
                 print('onPageChanged(): offset = $offset');
               },
+              onSort: (columnName, ascending) {
+                print(
+                    'onSort(): columnName = $columnName, ascending = $ascending');
+                setState(() {
+                  _sortColumnName = columnName;
+                  _sortAscending = ascending;
+                });
+              },
+              onRowsPerPageChanged: (rowsPerPage) {
+                print('onRowsPerPageChanged(): rowsPerPage = $rowsPerPage');
+                setState(() {
+                  _rowsPerPage = rowsPerPage;
+                });
+              },
+              rowsPerPage: _rowsPerPage,
             ),
           ),
         ),

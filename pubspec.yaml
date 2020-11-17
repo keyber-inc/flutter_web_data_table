@@ -1,5 +1,5 @@
 name: flutter_web_data_table
-description: A DataTable for Flutter Web that is implemented a sort and search.
+description: A DataTable for Flutter Web that is implemented a sorting, text filtering and selecting.
 version: 0.0.2
 homepage: https://github.com/keyber-inc/flutter_web_data_table
 

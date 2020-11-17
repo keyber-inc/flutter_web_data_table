@@ -12,7 +12,7 @@ class WebDataColumn {
     this.numeric = false,
     this.sortable = true,
     this.comparable,
-    this.searchText,
+    this.filterText,
   });
 
   final String name;
@@ -22,5 +22,5 @@ class WebDataColumn {
   final bool numeric;
   final bool sortable;
   final Comparable Function(dynamic value) comparable;
-  final String Function(dynamic value) searchText;
+  final String Function(dynamic value) filterText;
 }

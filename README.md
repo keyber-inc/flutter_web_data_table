@@ -1,6 +1,6 @@
 # flutter_web_data_table
 
-A DataTable for Flutter Web that is implemented a sort and search.
+A DataTable for Flutter Web that is implemented a sorting, text filtering and selecting.
 
 ## Usage
 
@@ -8,16 +8,15 @@ Using `WebDataTable` is similar to `PaginatedDataTable`.
 
 ### Sorting
 
-By default sorting is enabled.
+1. set `WebDataTableSource().sortColumnName` and `WebDataTableSource().sortAscending`
+2. implements `WebDataTable().onSort`
+3. each `WebDataColumn().sortable` to true
 
-If you want to disable sorting, set `sortable` of `WebDataColumn` to false.
+### Text Filtering
 
-### Searching
-
-By default searching is disabled.
-
-If you want to enable searching, set `enableSearch` of `WebDataTable` to true.
+1. set `WebDataTableSource().filterTexts`
 
 ### Selecting
 
-If you want to selecting, implements `onSelectedRows` of `WebDataTableSource` and set `primaryKeyName` to primary key.
+1. set `WebDataTableSource().primaryKeyName`
+2. implements `WebDataTableSource().onSelectRows`

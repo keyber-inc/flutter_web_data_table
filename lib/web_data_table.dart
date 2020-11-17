@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +9,7 @@ export 'src/web_data_table_source.dart';
 ///
 /// WebDataTable
 ///
-class WebDataTable extends StatefulWidget {
+class WebDataTable extends StatelessWidget {
   const WebDataTable({
     Key key,
     @required this.header,
@@ -22,7 +20,6 @@ class WebDataTable extends StatefulWidget {
     this.columnSpacing = 56.0,
     this.initialFirstRowIndex = 0,
     this.onPageChanged,
-    this.enableRowsPerPage = true,
     this.rowsPerPage = defaultRowsPerPage,
     this.availableRowsPerPage = const [
       defaultRowsPerPage,
@@ -30,11 +27,10 @@ class WebDataTable extends StatefulWidget {
       defaultRowsPerPage * 5,
       defaultRowsPerPage * 10,
     ],
-    @required this.source,
+    this.onRowsPerPageChanged,
     this.dragStartBehavior = DragStartBehavior.start,
-    this.enableSearch = false,
-    this.searchDecoration,
-    this.searchWidth = 200,
+    this.onSort,
+    @required this.source,
   }) : super(key: key);
 
   static const int defaultRowsPerPage = 10;
@@ -46,127 +42,49 @@ class WebDataTable extends StatefulWidget {
   final double columnSpacing;
   final int initialFirstRowIndex;
   final ValueChanged<int> onPageChanged;
-  final bool enableRowsPerPage;
   final int rowsPerPage;
   final List<int> availableRowsPerPage;
-  final WebDataTableSource source;
+  final Function(int rowsPerPage) onRowsPerPageChanged;
   final DragStartBehavior dragStartBehavior;
-  final bool enableSearch;
-  final InputDecoration searchDecoration;
-  final double searchWidth;
-
-  @override
-  _WebDataTableState createState() => _WebDataTableState();
-}
-
-class _WebDataTableState extends State<WebDataTable> {
-  int _sortColumnIndex;
-  bool _sortAscending;
-  int _rowsPerPage;
-  String _searchText;
-  bool _willSearch = true;
-  Timer _timer;
-  int _latestTick;
-
-  @override
-  void initState() {
-    super.initState();
-    _sortColumnIndex = widget.source.sortColumnIndex;
-    _sortAscending = widget.source.sortAscending;
-    _rowsPerPage = widget.rowsPerPage;
-    if (widget.enableSearch) {
-      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-        if (!_willSearch) {
-          if (_latestTick != null && timer.tick > _latestTick) {
-            _willSearch = true;
-          }
-        }
-        if (_willSearch) {
-          _willSearch = false;
-          _latestTick = null;
-          setState(() {
-            if (_searchText != null) {
-              widget.source.search(_searchText);
-            }
-          });
-        }
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    if (_timer != null) {
-      _timer.cancel();
-      _timer = null;
-    }
-  }
+  final Function(String columnName, bool ascending) onSort;
+  final WebDataTableSource source;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> actions = [];
-    if (widget.enableSearch) {
-      actions.add(Container(
-        width: widget.searchWidth,
-        child: TextField(
-          decoration: widget.searchDecoration != null
-              ? widget.searchDecoration
-              : InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                ),
-          onChanged: (text) {
-            _searchText = text.trim();
-            _willSearch = false;
-            _latestTick = _timer.tick;
-          },
-        ),
-      ));
-    }
-    if (widget.actions != null) {
-      actions.addAll(widget.actions);
-    }
-
     return PaginatedDataTable(
-      header: widget.header,
+      header: header,
       actions: actions,
-      columns: widget.source.columns.map((config) {
+      columns: source.columns.map((config) {
         return DataColumn(
           label: config.label,
           tooltip: config.tooltip,
           numeric: config.numeric,
-          onSort: config.sortable
+          onSort: config.sortable && onSort != null
               ? (columnIndex, ascending) {
-                  widget.source.sort(columnIndex, ascending);
-                  setState(() {
-                    _sortColumnIndex = columnIndex;
-                    _sortAscending = ascending;
-                  });
+                  source.sortColumnName = source.columns[columnIndex].name;
+                  source.sortAscending = ascending;
+                  if (onSort != null) {
+                    onSort(source.sortColumnName, source.sortAscending);
+                  }
                 }
               : null,
         );
       }).toList(),
-      sortColumnIndex: _sortColumnIndex,
-      sortAscending: _sortAscending,
-      onSelectAll: (selected) => widget.source.selectAll(selected),
-      dataRowHeight: widget.dataRowHeight,
-      headingRowHeight: widget.headingRowHeight,
-      horizontalMargin: widget.horizontalMargin,
-      columnSpacing: widget.columnSpacing,
-      showCheckboxColumn: widget.source.onSelectedRows != null,
-      initialFirstRowIndex: widget.initialFirstRowIndex,
-      onPageChanged: widget.onPageChanged,
-      rowsPerPage: _rowsPerPage,
-      availableRowsPerPage: widget.availableRowsPerPage,
-      onRowsPerPageChanged: widget.enableRowsPerPage
-          ? (rowsPerPage) {
-              setState(() {
-                _rowsPerPage = rowsPerPage;
-              });
-            }
-          : null,
-      dragStartBehavior: widget.dragStartBehavior,
-      source: widget.source,
+      sortColumnIndex: source.sortColumnIndex,
+      sortAscending: source.sortAscending,
+      onSelectAll: (selected) => source.selectAll(selected),
+      dataRowHeight: dataRowHeight,
+      headingRowHeight: headingRowHeight,
+      horizontalMargin: horizontalMargin,
+      columnSpacing: columnSpacing,
+      showCheckboxColumn: source.onSelectRows != null,
+      initialFirstRowIndex: initialFirstRowIndex,
+      onPageChanged: onPageChanged,
+      rowsPerPage: rowsPerPage,
+      availableRowsPerPage: availableRowsPerPage,
+      onRowsPerPageChanged: onRowsPerPageChanged,
+      dragStartBehavior: dragStartBehavior,
+      source: source,
     );
   }
 }
