@@ -171,8 +171,8 @@ class _MyAppState extends State<MyApp> {
                 ],
                 rows: SampleData().data,
                 selectedRowKeys: _selectedRowKeys,
-                onTapRow: (row, index) {
-                  print('onTapRow(): index = $index, row = $row');
+                onTapRow: (rows, index) {
+                  print('onTapRow(): index = $index, row = ${rows[index]}');
                 },
                 onSelectRows: (keys) {
                   print('onSelectRows(): count = ${keys.length} keys = $keys');

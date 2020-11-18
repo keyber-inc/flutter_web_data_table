@@ -28,7 +28,7 @@ class WebDataTableSource extends DataTableSource {
   final List<WebDataColumn> columns;
   final List<Map<String, dynamic>> rows;
   List<Map<String, dynamic>> _rows;
-  final Function(Map<String, dynamic> row, int index) onTapRow;
+  final Function(List<Map<String, dynamic>> rows, int index) onTapRow;
   final Function(List<String> selectedRowKeys) onSelectRows;
   String sortColumnName;
   bool sortAscending;
@@ -51,7 +51,7 @@ class WebDataTableSource extends DataTableSource {
         selected: key != null ? selectedRowKeys.contains(key) : false,
         onSelectChanged: (selected) {
           if (onTapRow != null) {
-            onTapRow(_rows[index], index);
+            onTapRow(_rows, index);
           }
           if (onSelectRows != null && key != null) {
             final keys = [...selectedRowKeys];
