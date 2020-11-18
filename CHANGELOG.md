@@ -1,3 +1,7 @@
+## 0.0.4 - November 18, 2020
+
+- Change an onTapRow Interface of WebDataTableSource class
+
 ## 0.0.3 - November 17, 2020
 
 - Change WebDataTable to StatelessWidget
