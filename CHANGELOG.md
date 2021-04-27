@@ -1,3 +1,7 @@
+## 1.0.0 - April 27, 2021
+
+- support null-safety
+
 ## 0.0.4 - November 18, 2020
 
 - Change an onTapRow Interface of WebDataTableSource class
