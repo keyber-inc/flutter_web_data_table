@@ -11,8 +11,8 @@ export 'src/web_data_table_source.dart';
 ///
 class WebDataTable extends StatelessWidget {
   const WebDataTable({
-    Key key,
-    @required this.header,
+    Key? key,
+    required this.header,
     this.actions,
     this.dataRowHeight = kMinInteractiveDimension,
     this.headingRowHeight = 56.0,
@@ -30,23 +30,23 @@ class WebDataTable extends StatelessWidget {
     this.onRowsPerPageChanged,
     this.dragStartBehavior = DragStartBehavior.start,
     this.onSort,
-    @required this.source,
+    required this.source,
   }) : super(key: key);
 
   static const int defaultRowsPerPage = 10;
   final Widget header;
-  final List<Widget> actions;
+  final List<Widget>? actions;
   final double dataRowHeight;
   final double headingRowHeight;
   final double horizontalMargin;
   final double columnSpacing;
   final int initialFirstRowIndex;
-  final ValueChanged<int> onPageChanged;
+  final ValueChanged<int>? onPageChanged;
   final int rowsPerPage;
   final List<int> availableRowsPerPage;
-  final Function(int rowsPerPage) onRowsPerPageChanged;
+  final Function(int? rowsPerPage)? onRowsPerPageChanged;
   final DragStartBehavior dragStartBehavior;
-  final Function(String columnName, bool ascending) onSort;
+  final Function(String columnName, bool ascending)? onSort;
   final WebDataTableSource source;
 
   @override
@@ -63,8 +63,8 @@ class WebDataTable extends StatelessWidget {
               ? (columnIndex, ascending) {
                   source.sortColumnName = source.columns[columnIndex].name;
                   source.sortAscending = ascending;
-                  if (onSort != null) {
-                    onSort(source.sortColumnName, source.sortAscending);
+                  if (onSort != null && source.sortColumnName != null) {
+                    onSort!(source.sortColumnName!, source.sortAscending);
                   }
                 }
               : null,
@@ -72,7 +72,9 @@ class WebDataTable extends StatelessWidget {
       }).toList(),
       sortColumnIndex: source.sortColumnIndex,
       sortAscending: source.sortAscending,
-      onSelectAll: (selected) => source.selectAll(selected),
+      onSelectAll: (selected) {
+        if (selected != null) source.selectAll(selected);
+      },
       dataRowHeight: dataRowHeight,
       headingRowHeight: headingRowHeight,
       horizontalMargin: horizontalMargin,

@@ -512,13 +512,13 @@ class SampleData {
 
 class SampleDataRow {
   SampleDataRow._({
-    this.id,
-    this.renderingEngine,
-    this.browser,
-    this.platform,
-    this.engineVersion,
-    this.cssGrade,
-    this.dateTime,
+    required this.id,
+    required this.renderingEngine,
+    required this.browser,
+    required this.platform,
+    required this.engineVersion,
+    required this.cssGrade,
+    required this.dateTime,
   });
 
   factory SampleDataRow.fromList(List<String> values) {

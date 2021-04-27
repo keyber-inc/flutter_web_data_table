@@ -7,8 +7,8 @@ import 'web_data_column.dart';
 ///
 class WebDataTableSource extends DataTableSource {
   WebDataTableSource({
-    @required this.columns,
-    @required this.rows,
+    required this.columns,
+    required this.rows,
     this.onTapRow,
     this.onSelectRows,
     this.sortColumnName,
@@ -27,13 +27,13 @@ class WebDataTableSource extends DataTableSource {
 
   final List<WebDataColumn> columns;
   final List<Map<String, dynamic>> rows;
-  List<Map<String, dynamic>> _rows;
-  final Function(List<Map<String, dynamic>> rows, int index) onTapRow;
-  final Function(List<String> selectedRowKeys) onSelectRows;
-  String sortColumnName;
+  late List<Map<String, dynamic>> _rows;
+  final Function(List<Map<String, dynamic>> rows, int index)? onTapRow;
+  final Function(List<String> selectedRowKeys)? onSelectRows;
+  String? sortColumnName;
   bool sortAscending;
-  final String primaryKeyName;
-  final List<String> filterTexts;
+  final String? primaryKeyName;
+  final List<String>? filterTexts;
   final List<String> selectedRowKeys;
 
   @override
@@ -51,16 +51,16 @@ class WebDataTableSource extends DataTableSource {
         selected: key != null ? selectedRowKeys.contains(key) : false,
         onSelectChanged: (selected) {
           if (onTapRow != null) {
-            onTapRow(_rows, index);
+            onTapRow!(_rows, index);
           }
           if (onSelectRows != null && key != null) {
             final keys = [...selectedRowKeys];
-            if (selected) {
+            if (selected != null && selected) {
               keys.add(key);
             } else {
               keys.remove(key);
             }
-            onSelectRows(keys);
+            onSelectRows!(keys);
           }
         });
   }
@@ -79,7 +79,7 @@ class WebDataTableSource extends DataTableSource {
       return;
     }
 
-    final column = _findColumn(sortColumnName);
+    final column = _findColumn(sortColumnName!);
     final cmp = column?.comparable;
     _rows.sort((Map<String, dynamic> a, Map<String, dynamic> b) {
       final aValue =
@@ -93,7 +93,7 @@ class WebDataTableSource extends DataTableSource {
   }
 
   void _executeFilter() {
-    if (filterTexts == null || filterTexts.isEmpty) {
+    if (filterTexts == null || filterTexts!.isEmpty) {
       return;
     }
 
@@ -104,13 +104,13 @@ class WebDataTableSource extends DataTableSource {
         final column = _findColumn(name);
         String text = row[name].toString();
         if (column?.filterText != null) {
-          text = column.filterText(row[name]);
+          text = column!.filterText!(row[name]);
         }
         valueTexts.add(text);
       }
 
       int containCount = 0;
-      for (final filterText in filterTexts) {
+      for (final filterText in filterTexts!) {
         for (final valueText in valueTexts) {
           if (valueText.contains(filterText)) {
             containCount++;
@@ -118,13 +118,13 @@ class WebDataTableSource extends DataTableSource {
           }
         }
       }
-      if (containCount == filterTexts.length) {
+      if (containCount == filterTexts!.length) {
         _rows.add(row);
       }
     }
   }
 
-  WebDataColumn _findColumn(String name) {
+  WebDataColumn? _findColumn(String name) {
     final founds = columns.where((column) => column.name == name);
     if (founds.isNotEmpty) {
       return founds.first;
@@ -132,8 +132,8 @@ class WebDataTableSource extends DataTableSource {
     return null;
   }
 
-  int get sortColumnIndex {
-    int index;
+  int? get sortColumnIndex {
+    int? index;
     if (sortColumnName != null) {
       columns.asMap().forEach((i, column) {
         if (column.name == sortColumnName) {
@@ -154,6 +154,6 @@ class WebDataTableSource extends DataTableSource {
     if (selected) {
       keys.addAll(_rows.map((row) => row[primaryKeyName].toString()).toList());
     }
-    onSelectRows(keys);
+    onSelectRows!(keys);
   }
 }

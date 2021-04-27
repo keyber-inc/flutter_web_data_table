@@ -15,12 +15,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _sortColumnName;
-  bool _sortAscending;
-  List<String> _filterTexts;
+  late String _sortColumnName;
+  late bool _sortAscending;
+  List<String>? _filterTexts;
   bool _willSearch = true;
-  Timer _timer;
-  int _latestTick;
+  Timer? _timer;
+  int? _latestTick;
   List<String> _selectedRowKeys = [];
   int _rowsPerPage = 10;
 
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     _sortAscending = false;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (!_willSearch) {
-        if (_latestTick != null && timer.tick > _latestTick) {
+        if (_latestTick != null && timer.tick > _latestTick!) {
           _willSearch = true;
         }
       }
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         _willSearch = false;
         _latestTick = null;
         setState(() {
-          if (_filterTexts != null && _filterTexts.isNotEmpty) {
+          if (_filterTexts != null && _filterTexts!.isNotEmpty) {
             _filterTexts = _filterTexts;
             print('filterTexts = $_filterTexts');
           }
@@ -51,10 +51,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     super.dispose();
-    if (_timer != null) {
-      _timer.cancel();
-      _timer = null;
-    }
+    _timer?.cancel();
+    _timer = null;
   }
 
   @override
@@ -110,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                     onChanged: (text) {
                       _filterTexts = text.trim().split(' ');
                       _willSearch = false;
-                      _latestTick = _timer.tick;
+                      _latestTick = _timer?.tick;
                     },
                   ),
                 ),
@@ -197,7 +195,9 @@ class _MyAppState extends State<MyApp> {
               onRowsPerPageChanged: (rowsPerPage) {
                 print('onRowsPerPageChanged(): rowsPerPage = $rowsPerPage');
                 setState(() {
-                  _rowsPerPage = rowsPerPage;
+                  if (rowsPerPage != null) {
+                    _rowsPerPage = rowsPerPage;
+                  }
                 });
               },
               rowsPerPage: _rowsPerPage,
